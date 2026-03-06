@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c8yqm3xj5vn2k"]
 
 [ext_resource type="PackedScene" uid="uid://b8qxvj7k3m5yw" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/scene/scene_transition_trigger.gd" id="2_transition"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(20, 1, 20)
@@ -19,6 +20,9 @@ size = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_obstacle3"]
 size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trigger"]
+size = Vector3(4, 3, 2)
 
 [node name="TestEnvironment" type="Node3D"]
 
@@ -64,3 +68,12 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="SceneTransitionTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+script = ExtResource("2_transition")
+target_scene = "res://scenes/environments/house_interior.tscn"
+target_spawn_id = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneTransitionTrigger"]
+shape = SubResource("BoxShape3D_trigger")

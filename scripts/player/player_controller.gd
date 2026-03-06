@@ -65,3 +65,21 @@ func handle_movement_input(delta: float) -> void:
 	
 	# Apply movement using Godot's built-in physics
 	move_and_slide()
+
+
+## Get the current player state as a dictionary
+## @return: Dictionary containing position and rotation
+func get_state() -> Dictionary:
+	var state = {}
+	state["position"] = global_position
+	state["rotation"] = rotation
+	return state
+
+
+## Restore player state from a dictionary
+## @param state: Dictionary containing position and rotation to restore
+func set_state(state: Dictionary) -> void:
+	if state.has("position"):
+		global_position = state["position"]
+	if state.has("rotation"):
+		rotation = state["rotation"]
