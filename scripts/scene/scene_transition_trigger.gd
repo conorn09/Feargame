@@ -14,12 +14,18 @@ extends Area3D
 func _ready() -> void:
 	# Connect to the body_entered signal to detect when something enters the trigger
 	body_entered.connect(_on_body_entered)
+	print("SceneTransitionTrigger ready! Target scene: ", target_scene)
 
 
 func _on_body_entered(body: Node3D) -> void:
+	print("Body entered trigger: ", body.name)
+	
 	# Check if the entering body is the player
 	if not body.is_in_group("player"):
+		print("Body is not in player group")
 		return
+	
+	print("Player detected! Transitioning to: ", target_scene)
 	
 	# Validate that a target scene is set
 	if target_scene.is_empty():
