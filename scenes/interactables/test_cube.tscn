@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://test_cube_001"]
+
+[ext_resource type="Script" path="res://scripts/interaction/interactable.gd" id="1_interactable"]
+[ext_resource type="Script" path="res://scripts/interaction/test_cube_interactable.gd" id="2_test_cube"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(1, 1, 1)
+
+[node name="TestCube" type="StaticBody3D" groups=["interactable"]]
+script = ExtResource("2_test_cube")
+interaction_prompt = "Examine Cube"
+description = "A mysterious cube. It seems to be glowing faintly."
+gives_item = false
+one_time_use = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1")

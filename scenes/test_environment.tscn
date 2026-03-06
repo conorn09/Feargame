@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b8qxvj7k3m5yw" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/scene/scene_transition_trigger.gd" id="2_transition"]
+[ext_resource type="PackedScene" uid="uid://test_cube_001" path="res://scenes/interactables/test_cube.tscn" id="3_test_cube"]
+[ext_resource type="PackedScene" uid="uid://simple_ui_001" path="res://scenes/ui/simple_interaction_ui.tscn" id="4_ui"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(20, 1, 20)
@@ -90,3 +92,8 @@ shape = SubResource("BoxShape3D_trigger")
 [node name="VisualIndicator" type="MeshInstance3D" parent="SceneTransitionTrigger"]
 mesh = SubResource("BoxMesh_trigger")
 material_override = SubResource("StandardMaterial3D_trigger")
+
+[node name="TestCube" parent="." instance=ExtResource("3_test_cube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
+
+[node name="SimpleInteractionUI" parent="." instance=ExtResource("4_ui")]
