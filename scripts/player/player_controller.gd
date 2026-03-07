@@ -25,10 +25,6 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
-	# Quick exit for testing - press Escape to quit
-	if Input.is_action_just_pressed("pause"):
-		get_tree().quit()
-	
 	# Toggle flashlight
 	if Input.is_action_just_pressed("toggle_flashlight"):
 		toggle_flashlight()
