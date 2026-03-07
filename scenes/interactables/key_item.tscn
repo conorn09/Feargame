@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://key_item_001"]
+
+[ext_resource type="Script" path="res://scripts/interaction/key_item_interactable.gd" id="1_key_item"]
+[ext_resource type="Resource" path="res://resources/items/key_item.tres" id="2_key_resource"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_key"]
+size = Vector3(0.3, 0.1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_key"]
+size = Vector3(0.3, 0.1, 0.5)
+
+[node name="KeyItem" type="StaticBody3D" groups=["interactable"]]
+script = ExtResource("1_key_item")
+interaction_prompt = "Pick up"
+description = "A mysterious key lies here."
+gives_item = true
+item_data = ExtResource("2_key_resource")
+one_time_use = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_key")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_key")

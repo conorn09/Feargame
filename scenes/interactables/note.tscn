@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://note_001"]
+
+[ext_resource type="Script" path="res://scripts/interaction/note_interactable.gd" id="1_note"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_note"]
+size = Vector3(0.3, 0.01, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_note"]
+size = Vector3(0.3, 0.01, 0.4)
+
+[node name="Note" type="StaticBody3D" groups=["interactable"]]
+script = ExtResource("1_note")
+interaction_prompt = "Read Note"
+description = "The handwriting is shaky and hard to read: 'If you're reading this, get out while you still can. The house... it's not what it seems. I thought I heard something in the basement last night. I'm going to check it out tomorrow. If I don't make it back, tell my family I love them.'"
+gives_item = false
+one_time_use = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_note")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_note")

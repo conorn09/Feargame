@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/inventory_item.gd" id="1_inventory_item"]
+
+[resource]
+script = ExtResource("1_inventory_item")
+item_id = "mysterious_key"
+display_name = "Mysterious Key"
+description = "An old brass key. It looks like it might open something important."
+icon = null
+is_key_item = true
