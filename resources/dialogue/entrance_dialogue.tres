@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DialogueEntry" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/narrative/dialogue_entry.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+text = "The door closes behind you... There's no turning back now."
+duration = 4.0
+speaker = ""
+audio = null

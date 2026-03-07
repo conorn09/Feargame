@@ -1,13 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8j3k4m5n6o7p8q9"]
+[gd_scene load_steps=13 format=3 uid="uid://c8j3k4m5n6o7p8q9"]
 
 [ext_resource type="Script" path="res://scripts/scene/spawn_point.gd" id="1_spawn"]
 [ext_resource type="PackedScene" uid="uid://b8qxvj7k3m5yw" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://door_001" path="res://scenes/interactables/door.tscn" id="3_door"]
 [ext_resource type="PackedScene" uid="uid://key_item_001" path="res://scenes/interactables/key_item.tscn" id="4_key"]
 [ext_resource type="PackedScene" uid="uid://note_001" path="res://scenes/interactables/note.tscn" id="5_note"]
+[ext_resource type="Script" path="res://scripts/narrative/story_trigger.gd" id="6_story_trigger"]
+[ext_resource type="Resource" uid="uid://entrance_dialogue" path="res://resources/dialogue/entrance_dialogue.tres" id="7_entrance_dialogue"]
+[ext_resource type="Resource" uid="uid://found_key_area_dialogue" path="res://resources/dialogue/found_key_area_dialogue.tres" id="8_found_key_dialogue"]
+[ext_resource type="PackedScene" uid="uid://narrative_display_ui" path="res://scenes/ui/narrative_display.tscn" id="9_narrative_ui"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(16, 1, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_entrance_trigger"]
+size = Vector3(4, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_key_area_trigger"]
+size = Vector3(3, 3, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(16, 1, 12)
@@ -45,3 +55,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -3)
 
 [node name="Note" parent="." instance=ExtResource("5_note")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -4)
+
+[node name="EntranceTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+script = ExtResource("6_story_trigger")
+trigger_id = "entered_house"
+sets_flags = {
+"house_entered": true
+}
+dialogue = Array[ExtResource("7_entrance_dialogue")]([ExtResource("7_entrance_dialogue")])
+one_time = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EntranceTrigger"]
+shape = SubResource("BoxShape3D_entrance_trigger")
+
+[node name="KeyAreaTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -3)
+script = ExtResource("6_story_trigger")
+trigger_id = "found_key_area"
+required_flags = Array[String](["house_entered"])
+dialogue = Array[ExtResource("8_found_key_dialogue")]([ExtResource("8_found_key_dialogue")])
+one_time = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyAreaTrigger"]
+shape = SubResource("BoxShape3D_key_area_trigger")
+
+[node name="NarrativeDisplay" parent="." instance=ExtResource("9_narrative_ui")]
