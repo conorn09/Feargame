@@ -5,11 +5,20 @@ extends CharacterBody3D
 @export var mouse_sensitivity: float = 0.002
 @export var camera_pitch_limit: float = 80.0  # degrees
 
+# Flashlight properties
+var flashlight_on: bool = false
+var flashlight_battery: float = 100.0
+
 # Camera reference
 @onready var camera: Camera3D = $Camera3D
+@onready var flashlight: SpotLight3D = $Camera3D/Flashlight
 
 # Camera rotation tracking
 var camera_pitch: float = 0.0
+
+# Signals
+signal flashlight_toggled(is_on: bool)
+signal battery_changed(percentage: float)
 
 func _ready() -> void:
 	# Capture the mouse cursor for first-person control
@@ -19,6 +28,10 @@ func _input(event: InputEvent) -> void:
 	# Quick exit for testing - press Escape to quit
 	if Input.is_action_just_pressed("pause"):
 		get_tree().quit()
+	
+	# Toggle flashlight
+	if Input.is_action_just_pressed("toggle_flashlight"):
+		toggle_flashlight()
 	
 	# Handle mouse motion for camera rotation
 	if event is InputEventMouseMotion:
@@ -34,6 +47,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	handle_movement_input(delta)
+	handle_flashlight_battery(delta)
 
 func handle_movement_input(delta: float) -> void:
 	# Get input direction from WASD keys
@@ -83,3 +97,32 @@ func set_state(state: Dictionary) -> void:
 		global_position = state["position"]
 	if state.has("rotation"):
 		rotation = state["rotation"]
+
+
+
+## Toggle flashlight on/off
+func toggle_flashlight() -> void:
+	if flashlight_battery <= 0:
+		return  # Can't turn on if battery is dead
+	
+	flashlight_on = !flashlight_on
+	flashlight.visible = flashlight_on
+	flashlight_toggled.emit(flashlight_on)
+
+
+
+## Handle flashlight battery drain
+func handle_flashlight_battery(delta: float) -> void:
+	if flashlight_on and flashlight_battery > 0:
+		# Drain battery at 1% per second
+		flashlight_battery -= delta
+		flashlight_battery = max(flashlight_battery, 0.0)
+		
+		# Emit battery changed signal
+		battery_changed.emit(flashlight_battery)
+		
+		# Turn off flashlight if battery is dead
+		if flashlight_battery <= 0:
+			flashlight_on = false
+			flashlight.visible = false
+			flashlight_toggled.emit(false)
