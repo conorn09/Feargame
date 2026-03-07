@@ -10,6 +10,7 @@ class_name StoryTrigger
 @export var required_items: Array[String] = []  # Item IDs that must be in inventory
 @export var sets_flags: Dictionary = {}  # flag_name -> value (bool)
 @export var dialogue: Array[DialogueEntry] = []
+@export var trigger_audio: AudioStream = null  # Optional audio to play when triggered
 @export var one_time: bool = true
 
 var has_triggered: bool = false
@@ -57,6 +58,11 @@ func check_conditions() -> bool:
 func trigger_event() -> void:
 	has_triggered = true
 	var narrative_system = get_node("/root/NarrativeSystem")
+	var audio_manager = get_node("/root/AudioManager")
+	
+	# Play audio if provided
+	if trigger_audio:
+		audio_manager.play_sfx(trigger_audio)
 	
 	# Set story flags
 	for flag_name in sets_flags:

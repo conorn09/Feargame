@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*res://scripts/managers/scene_manager.gd"
 NarrativeSystem="*res://scripts/managers/narrative_manager.gd"
+AudioManager="*res://scripts/managers/audio_manager.gd"
 
 [input]
 
