@@ -1,34 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8j3k4m5n6o7p8q9"]
+[gd_scene format=3 uid="uid://b8a6ams8ho6ni"]
 
-[ext_resource type="Script" path="res://scripts/scene/spawn_point.gd" id="1_spawn"]
+[ext_resource type="Script" uid="uid://bthry5nw8llyb" path="res://scripts/scene/spawn_point.gd" id="1_spawn"]
 [ext_resource type="PackedScene" uid="uid://b8qxvj7k3m5yw" path="res://scenes/player/player.tscn" id="2_player"]
-[ext_resource type="PackedScene" uid="uid://door_001" path="res://scenes/interactables/door.tscn" id="3_door"]
-[ext_resource type="PackedScene" uid="uid://key_item_001" path="res://scenes/interactables/key_item.tscn" id="4_key"]
-[ext_resource type="PackedScene" uid="uid://note_001" path="res://scenes/interactables/note.tscn" id="5_note"]
-[ext_resource type="Script" path="res://scripts/narrative/story_trigger.gd" id="6_story_trigger"]
-[ext_resource type="Resource" uid="uid://entrance_dialogue" path="res://resources/dialogue/entrance_dialogue.tres" id="7_entrance_dialogue"]
-[ext_resource type="Resource" uid="uid://found_key_area_dialogue" path="res://resources/dialogue/found_key_area_dialogue.tres" id="8_found_key_dialogue"]
-[ext_resource type="PackedScene" uid="uid://narrative_display_ui" path="res://scenes/ui/narrative_display.tscn" id="9_narrative_ui"]
-[ext_resource type="PackedScene" uid="uid://ui_manager_main" path="res://scenes/ui/ui_manager.tscn" id="10_ui_manager"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
-size = Vector3(16, 1, 12)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_entrance_trigger"]
-size = Vector3(4, 3, 2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_key_area_trigger"]
-size = Vector3(3, 3, 3)
-
-[sub_resource type="BoxMesh" id="BoxMesh_floor"]
-size = Vector3(16, 1, 12)
+[ext_resource type="PackedScene" path="res://scenes/interactables/door.tscn" id="3_door"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/key_item.tscn" id="4_key"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/note.tscn" id="5_note"]
+[ext_resource type="Script" uid="uid://c0ntxuanv3lau" path="res://scripts/narrative/story_trigger.gd" id="6_story_trigger"]
+[ext_resource type="Resource" path="res://resources/dialogue/entrance_dialogue.tres" id="7_entrance_dialogue"]
+[ext_resource type="Script" uid="uid://wa1amx1h8s28" path="res://scripts/narrative/dialogue_entry.gd" id="8_du72j"]
+[ext_resource type="Resource" path="res://resources/dialogue/found_key_area_dialogue.tres" id="8_found_key_dialogue"]
+[ext_resource type="PackedScene" path="res://scenes/ui/narrative_display.tscn" id="9_narrative_ui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ui_manager.tscn" id="10_ui_manager"]
+[ext_resource type="PackedScene" uid="uid://t46lomch1tsp" path="res://assets/house_interior/scene.gltf" id="11_house_model"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
-background_color = Color(0.1, 0.1, 0.12, 1)
+background_color = Color(0.2, 0.2, 0.22, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.3, 0.35, 0.4, 1)
-ambient_light_energy = 0.5
+ambient_light_color = Color(0.8, 0.8, 0.85, 1)
+ambient_light_energy = 1.2
 tonemap_mode = 2
 ssao_enabled = true
 ssao_radius = 2.0
@@ -42,68 +32,82 @@ adjustment_brightness = 0.9
 adjustment_contrast = 1.1
 adjustment_saturation = 0.8
 
-[node name="HouseInterior" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(100, 0.2, 100)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(16, 1, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_entrance_trigger"]
+size = Vector3(4, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_key_area_trigger"]
+size = Vector3(3, 3, 3)
+
+[node name="HouseInterior" type="Node3D" unique_id=121673444]
+
+[node name="Sketchfab_Scene" parent="." unique_id=1280607506 instance=ExtResource("11_house_model")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3.7224789, 2.5284023, -9.507162)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=356760250]
 environment = SubResource("Environment_1")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1824006397]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
-light_energy = 0.3
-light_color = Color(0.8, 0.85, 1, 1)
+light_energy = 1.5
 shadow_enabled = true
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=116471398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1155241521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_floor")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=687196096]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_floor")
 
-[node name="Player" parent="." instance=ExtResource("2_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+[node name="Player" parent="." unique_id=342845547 instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 
-[node name="SpawnPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=503803530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 script = ExtResource("1_spawn")
-spawn_id = "default"
 
-[node name="Door" parent="." instance=ExtResource("3_door")]
+[node name="Door" parent="." unique_id=1103758424 instance=ExtResource("3_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.5, 0)
 
-[node name="KeyItem" parent="." instance=ExtResource("4_key")]
+[node name="KeyItem" parent="." unique_id=619703827 instance=ExtResource("4_key")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -3)
 
-[node name="Note" parent="." instance=ExtResource("5_note")]
+[node name="Note" parent="." unique_id=1328535176 instance=ExtResource("5_note")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -4)
 
-[node name="EntranceTrigger" type="Area3D" parent="."]
+[node name="EntranceTrigger" type="Area3D" parent="." unique_id=306575645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
 script = ExtResource("6_story_trigger")
 trigger_id = "entered_house"
 sets_flags = {
 "house_entered": true
 }
-dialogue = Array[ExtResource("7_entrance_dialogue")]([ExtResource("7_entrance_dialogue")])
-one_time = true
+dialogue = Array[ExtResource("8_du72j")]([ExtResource("7_entrance_dialogue")])
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EntranceTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EntranceTrigger" unique_id=1914291175]
 shape = SubResource("BoxShape3D_entrance_trigger")
 
-[node name="KeyAreaTrigger" type="Area3D" parent="."]
+[node name="KeyAreaTrigger" type="Area3D" parent="." unique_id=934906557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -3)
 script = ExtResource("6_story_trigger")
 trigger_id = "found_key_area"
 required_flags = Array[String](["house_entered"])
-dialogue = Array[ExtResource("8_found_key_dialogue")]([ExtResource("8_found_key_dialogue")])
-one_time = true
+dialogue = Array[ExtResource("8_du72j")]([ExtResource("8_found_key_dialogue")])
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyAreaTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyAreaTrigger" unique_id=1252581033]
 shape = SubResource("BoxShape3D_key_area_trigger")
 
-[node name="NarrativeDisplay" parent="." instance=ExtResource("9_narrative_ui")]
+[node name="NarrativeDisplay" parent="." unique_id=2069580159 instance=ExtResource("9_narrative_ui")]
 
-[node name="UIManager" parent="." instance=ExtResource("10_ui_manager")]
+[node name="UIManager" parent="." unique_id=1405193289 instance=ExtResource("10_ui_manager")]

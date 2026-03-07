@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # Movement properties
-@export var walk_speed: float = 3.0
+@export var walk_speed: float = 5.0
 @export var mouse_sensitivity: float = 0.002
 @export var camera_pitch_limit: float = 80.0  # degrees
 
