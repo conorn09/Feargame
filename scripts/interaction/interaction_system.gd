@@ -30,6 +30,15 @@ func _ready() -> void:
 		raycast_node.enabled = true
 	else:
 		push_error("InteractionSystem: Could not find RayCast3D node!")
+	
+	# Connect to UI Manager if it exists (wait a frame for scene to be ready)
+	await get_tree().process_frame
+	var ui_manager = get_tree().current_scene.get_node_or_null("UIManager")
+	if ui_manager:
+		interactable_focused.connect(func(obj): ui_manager.show_interaction_prompt("Press E to " + obj.get_prompt()))
+		interactable_unfocused.connect(func(): ui_manager.hide_interaction_prompt())
+	else:
+		print("InteractionSystem: UIManager not found in scene")
 
 func _process(_delta: float) -> void:
 	check_for_interactable()

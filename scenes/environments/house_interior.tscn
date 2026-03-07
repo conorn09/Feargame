@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8j3k4m5n6o7p8q9"]
+[gd_scene load_steps=14 format=3 uid="uid://c8j3k4m5n6o7p8q9"]
 
 [ext_resource type="Script" path="res://scripts/scene/spawn_point.gd" id="1_spawn"]
 [ext_resource type="PackedScene" uid="uid://b8qxvj7k3m5yw" path="res://scenes/player/player.tscn" id="2_player"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://entrance_dialogue" path="res://resources/dialogue/entrance_dialogue.tres" id="7_entrance_dialogue"]
 [ext_resource type="Resource" uid="uid://found_key_area_dialogue" path="res://resources/dialogue/found_key_area_dialogue.tres" id="8_found_key_dialogue"]
 [ext_resource type="PackedScene" uid="uid://narrative_display_ui" path="res://scenes/ui/narrative_display.tscn" id="9_narrative_ui"]
+[ext_resource type="PackedScene" uid="uid://ui_manager_main" path="res://scenes/ui/ui_manager.tscn" id="10_ui_manager"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(16, 1, 12)
@@ -81,3 +82,5 @@ one_time = true
 shape = SubResource("BoxShape3D_key_area_trigger")
 
 [node name="NarrativeDisplay" parent="." instance=ExtResource("9_narrative_ui")]
+
+[node name="UIManager" parent="." instance=ExtResource("10_ui_manager")]
