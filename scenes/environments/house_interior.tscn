@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/narrative_display.tscn" id="9_narrative_ui"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ui_manager.tscn" id="10_ui_manager"]
 [ext_resource type="PackedScene" uid="uid://t46lomch1tsp" path="res://assets/house_interior/scene.gltf" id="11_house_model"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/animated_door.tscn" id="13_1qeey"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -58,11 +59,10 @@ light_energy = 1.5
 shadow_enabled = true
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=116471398]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.95, 0)
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1155241521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_floor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=687196096]
@@ -71,10 +71,10 @@ visible = false
 mesh = SubResource("BoxMesh_floor")
 
 [node name="Player" parent="." unique_id=342845547 instance=ExtResource("2_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.95, 0)
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=503803530]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.95, 0)
 script = ExtResource("1_spawn")
 
 [node name="Door" parent="." unique_id=1103758424 instance=ExtResource("3_door")]
@@ -111,3 +111,6 @@ shape = SubResource("BoxShape3D_key_area_trigger")
 [node name="NarrativeDisplay" parent="." unique_id=2069580159 instance=ExtResource("9_narrative_ui")]
 
 [node name="UIManager" parent="." unique_id=1405193289 instance=ExtResource("10_ui_manager")]
+
+[node name="AnimatedDoor" parent="." unique_id=1225956992 instance=ExtResource("13_1qeey")]
+transform = Transform3D(0.010995361, 0, -0.99993956, 0, 1, 0, 0.99993956, 0, 0.010995361, -40.648956, 8.225595, 29.257717)
